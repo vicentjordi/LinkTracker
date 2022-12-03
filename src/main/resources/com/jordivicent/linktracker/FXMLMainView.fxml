@@ -21,14 +21,14 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem id="miLoad" fx:id="miLoad" mnemonicParsing="false" text="Load File..." />
-              <MenuItem id="miExit" fx:id="miExit" mnemonicParsing="false" text="Exit" />
+                  <MenuItem id="miLoad" fx:id="miLoad" mnemonicParsing="false" onAction="#LoadFile" text="Load File..." />
+              <MenuItem id="miExit" fx:id="miExit" mnemonicParsing="false" onAction="#Exit" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Process">
             <items>
-              <MenuItem id="miStart" fx:id="miStart" mnemonicParsing="false" text="Start" />
-                  <MenuItem id="clearProcess" fx:id="clearProcess" mnemonicParsing="false" text="Clear" />
+              <MenuItem id="miStart" fx:id="miStart" mnemonicParsing="false" onAction="#Start" text="Start" />
+                  <MenuItem id="clearProcess" fx:id="clearProcess" mnemonicParsing="false" onAction="#ClearAll" text="Clear" />
             </items>
           </Menu>
         </menus>
