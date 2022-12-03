@@ -8,6 +8,12 @@ import java.util.List;
 public class FileUtils {
 
     public static List<WebPage> loadPages(Path file){
+        System.out.println(file);
+        try{
+
+        }catch (Exception e){
+            MessageUtils.errorFormato(file);
+        }
         return null;
-    }
+    }//end_loadPages
 }

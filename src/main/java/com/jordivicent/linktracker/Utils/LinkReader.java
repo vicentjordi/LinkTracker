@@ -35,7 +35,7 @@ public class LinkReader extends BufferedReader {
         }
 
         return strJoin.length() == 0?null:strJoin.toString();
-    }
+    }//end_searchLink
 
     @Override
     public String readLine() throws IOException {
@@ -46,7 +46,7 @@ public class LinkReader extends BufferedReader {
         }
 
         return result;
-    }
+    }//end_readLine
 
     private static String getCharset(String contentType) {
         if (contentType != null) {
@@ -58,7 +58,7 @@ public class LinkReader extends BufferedReader {
         }
 
         return null; // Probably binary content
-    }
+    }//end_getCharset
 
     public static List<String> getLinks (String urlToParse) {
 
@@ -83,6 +83,6 @@ public class LinkReader extends BufferedReader {
         } catch (IOException ex) { }
 
         return result;
-    }
+    }//end_getLinks
 
 }

@@ -1,5 +1,7 @@
 package com.jordivicent.linktracker;
 
+import com.jordivicent.linktracker.Utils.FileUtils;
+import com.jordivicent.linktracker.Utils.MessageUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,6 +14,7 @@ import org.controlsfx.tools.Utils;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Path;
 
 public class FXMLMainViewController {
     @FXML
@@ -33,16 +36,16 @@ public class FXMLMainViewController {
     @FXML
     public ListView lvCargarEnlaces;
 
-    public void LoadFile(ActionEvent actionEvent) throws UnknownHostException {
+    public void LoadFile(ActionEvent actionEvent) {
         buscarFichero();
-    }
+    }//end_LoadFile
 
     public void Exit(ActionEvent actionEvent) {
         System.exit(0);
-    }
+    }//end_Exit
 
     public void Start(ActionEvent actionEvent) {
-    }
+    }//End_Start
 
     public void ClearAll(ActionEvent actionEvent) {
         lvCargarEnlaces.getItems().clear();
@@ -50,7 +53,7 @@ public class FXMLMainViewController {
         lblTotalLinks.setText("0");
         lblTotalProcessed.setText("0");
         lblTotalPages.setText("0");
-    }
+    }//end_ClearAll
 
     private void buscarFichero(){
         FileChooser fc = new FileChooser();
@@ -68,7 +71,9 @@ public class FXMLMainViewController {
         File selectedFile = fc.showOpenDialog(new Stage());
 
         if (selectedFile != null){
-            System.out.println(selectedFile.getPath());
-        }
-    }
+            FileUtils.loadPages(Path.of(selectedFile.getPath()));
+        }else{
+            MessageUtils.errorFichero();
+        }//end_if/else
+    }//end_BuscarFichero
 }
