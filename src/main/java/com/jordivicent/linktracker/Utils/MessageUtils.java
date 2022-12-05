@@ -6,7 +6,7 @@ import java.nio.file.Path;
 
 public class MessageUtils {
     public static void errorFichero(){
-        Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+        Alert dialog = new Alert(Alert.AlertType.ERROR);
 
         dialog.setTitle("Fichero");
         dialog.setHeaderText("Sin fichero seleccionado");
@@ -21,4 +21,21 @@ public class MessageUtils {
         dialog.setContentText("El formato del archivo "+path+ " es incorrecto. \n Verifica que siga el siguiente formato(page_name; url).");
         dialog.showAndWait();
     }//end_errorFormato
+
+    public static void fileLoaded(int count){
+        Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+
+        dialog.setTitle("Archivo Cargado");
+        dialog.setHeaderText("Archivo Cargado");
+        dialog.setContentText(count+" páginas encontradas.");
+        dialog.showAndWait();
+    }
+    public static void processError(){
+        Alert dialog = new Alert(Alert.AlertType.ERROR);
+
+        dialog.setTitle("Error al Procesar");
+        dialog.setHeaderText("Error al Procesar");
+        dialog.setContentText("No hay ninguna URL en el Archivo cargado.");
+        dialog.showAndWait();
+    }
 }

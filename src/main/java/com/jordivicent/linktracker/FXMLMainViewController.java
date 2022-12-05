@@ -1,7 +1,10 @@
 package com.jordivicent.linktracker;
 
+import com.jordivicent.linktracker.Model.WebPage;
 import com.jordivicent.linktracker.Utils.FileUtils;
 import com.jordivicent.linktracker.Utils.MessageUtils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,6 +18,9 @@ import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class FXMLMainViewController {
     @FXML
@@ -32,10 +38,11 @@ public class FXMLMainViewController {
     @FXML
     public MenuItem clearProcess;
     @FXML
-    public ListView lvCargarWeb;
+    public ListView<String> lvCargarWeb;
     @FXML
     public ListView lvCargarEnlaces;
 
+    List<WebPage> webPages;
     public void LoadFile(ActionEvent actionEvent) {
         buscarFichero();
     }//end_LoadFile
@@ -45,11 +52,22 @@ public class FXMLMainViewController {
     }//end_Exit
 
     public void Start(ActionEvent actionEvent) {
+        if(webPages.size() !=0){
+            MessageUtils.fileLoaded(webPages.size());
+            for (WebPage page : webPages){
+                lvCargarWeb.getItems().add(page.getNombreWeb());
+            }
+            lblTotalPages.setText(Integer.toString(webPages.size()));
+        }else{
+            MessageUtils.processError();
+            webPages.removeAll(webPages);
+        }
     }//End_Start
 
     public void ClearAll(ActionEvent actionEvent) {
         lvCargarEnlaces.getItems().clear();
         lvCargarWeb.getItems().clear();
+        webPages.removeAll(webPages);
         lblTotalLinks.setText("0");
         lblTotalProcessed.setText("0");
         lblTotalPages.setText("0");
@@ -71,9 +89,10 @@ public class FXMLMainViewController {
         File selectedFile = fc.showOpenDialog(new Stage());
 
         if (selectedFile != null){
-            FileUtils.loadPages(Path.of(selectedFile.getPath()));
+           webPages = FileUtils.loadPages(Path.of(selectedFile.getPath()));
         }else{
             MessageUtils.errorFichero();
         }//end_if/else
+
     }//end_BuscarFichero
 }
