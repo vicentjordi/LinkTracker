@@ -3,8 +3,6 @@ package com.jordivicent.linktracker;
 import com.jordivicent.linktracker.Model.WebPage;
 import com.jordivicent.linktracker.Utils.FileUtils;
 import com.jordivicent.linktracker.Utils.MessageUtils;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,15 +10,15 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.tools.Utils;
-
 import java.io.File;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.lang.reflect.Array;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.*;
 
 public class FXMLMainViewController {
     @FXML
@@ -51,16 +49,28 @@ public class FXMLMainViewController {
         System.exit(0);
     }//end_Exit
 
-    public void Start(ActionEvent actionEvent) {
-        if(webPages.size() !=0){
-            MessageUtils.fileLoaded(webPages.size());
-            for (WebPage page : webPages){
-                lvCargarWeb.getItems().add(page.getNombreWeb());
+    public void Start(ActionEvent actionEvent) throws MalformedURLException {
+        //Crear lista donde almacenar hilos
+        List<Callable<WebPage>> listURL = Arrays.asList();
+        //Crear hilos por cada enlace en fichero
+        for (WebPage page : webPages){
+           // callURL(new URL(page.getUrlWeb()));
+        }
+        //Iniciar executor
+        ExecutorService executor = Executors.newWorkStealingPool();
+        //Guardar lista de enlaces.
+        List<Future<WebPage>> enlacesURL;
+
+        try{
+            //Ejecutar hilo
+            for(int i=0; i<=listURL.size();i++){
+                //enlacesURL = executor.submit(listURL);
             }
-            lblTotalPages.setText(Integer.toString(webPages.size()));
-        }else{
+            executor.shutdown();
+
+        }catch(Exception e){
             MessageUtils.processError();
-            webPages.removeAll(webPages);
+            //webPages.removeAll(webPages);
         }
     }//End_Start
 
@@ -90,9 +100,13 @@ public class FXMLMainViewController {
 
         if (selectedFile != null){
            webPages = FileUtils.loadPages(Path.of(selectedFile.getPath()));
+            MessageUtils.fileLoaded(webPages.size());
+
+            lblTotalPages.setText(Integer.toString(webPages.size()));
         }else{
             MessageUtils.errorFichero();
         }//end_if/else
 
     }//end_BuscarFichero
+
 }

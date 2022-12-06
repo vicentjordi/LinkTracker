@@ -35,7 +35,16 @@ public class MessageUtils {
 
         dialog.setTitle("Error al Procesar");
         dialog.setHeaderText("Error al Procesar");
-        dialog.setContentText("No hay ninguna URL en el Archivo cargado.");
+        dialog.setContentText("No hay ninguna Lista URL cargada.");
+        dialog.showAndWait();
+    }
+
+    public static void timeOut(){
+        Alert dialog = new Alert(Alert.AlertType.ERROR);
+
+        dialog.setTitle("Tiempo Limite");
+        dialog.setHeaderText("Se ha llegado al tiempo límite");
+        dialog.setContentText("El hilo ha superado el tiempo esperado.");
         dialog.showAndWait();
     }
 }
